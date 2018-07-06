@@ -1,0 +1,116 @@
+//------------------------------------------------
+//--- 010 Editor v6.0 Binary Template
+//
+//      File: Tutorial.bt
+//   Authors: SweetScape Software
+//   Version: 1.1
+//   Purpose: Part of the tutorial for 
+//            learning to write binary templates. 
+//------------------------------------------------
+//encoding:gbk cp939
+//open options, editor->file->template-> select chinese to display chinese comments
+//open options, editor->file->editor-> select chinese to display chinese in hex editor
+//�浵�е���Ʒ����
+enum
+{
+    SUBMAP_COORD_COUNT = 64,
+    SUBMAP_LAYER_COUNT = 6,
+    MAINMAP_COORD_COUNT = 480,
+    SUBMAP_EVENT_COUNT = 200,    //����������¼���
+    ITEM_IN_BAG_COUNT = 200,     //�����Ʒ��
+    TEAMMATE_COUNT = 6,          //��������Ա��
+};
+
+enum
+{
+    ROLE_MAGIC_COUNT = 10,
+    ROLE_TAKING_ITEM_COUNT = 4,
+
+    MAX_MAGIC_LEVEL = 999,
+    MAX_MAGIC_LEVEL_INDEX = 9,
+};
+
+enum
+{
+    SHOP_ITEM_COUNT = 5,
+};
+enum{
+ROLE_OFFSET = 1672,
+ITEM_OFFSET = 118152,
+SUBMAP_INFO_OFFSET = 194152,
+MAGIC_SAVE_OFFSET = 202888,
+SHOP_SAVE_OFFSET = 228184,
+} ;
+FSeek(ROLE_OFFSET);
+
+//�浵�еĽ�ɫ����
+struct RoleSave
+{
+    int ID;
+    int HeadID, IncLife, UnUse;
+    char Name[20], Nick[20];
+    int Sexual;    //�Ա� 0-�� 1 Ů 2 ����(�ӹ�?)
+    int Level;
+    int Exp;
+    int HP, MaxHP, Hurt, Poison, PhysicalPower;
+    int ExpForMakeItem;
+    int Equip0, Equip1;
+    int Frame[15];    //����֡������Ϊ���ڴ˴����棬��ʵ�����ã������ӳ�֡����Ч��������Ӱ�죬����
+    int MPType, MP, MaxMP;
+    int Attack, Speed, Defence, Medcine, UsePoison, Detoxification, AntiPoison, Fist, Sword, Knife, Unusual, HiddenWeapon;
+    int Knowledge, Morality, AttackWithPoison, AttackTwice, Fame, IQ;
+    int PracticeItem;
+    int ExpForItem;
+    int MagicID[ROLE_MAGIC_COUNT], MagicLevel[ROLE_MAGIC_COUNT];
+    int TakingItem[ROLE_TAKING_ITEM_COUNT], TakingItemCount[ROLE_TAKING_ITEM_COUNT];
+}rolesave[320];
+//�浵�е���Ʒ����
+struct ItemSave
+{
+    int ID;
+    char Name[40];
+    int Name1[10];
+    char Introduction[60];
+    int MagicID, HiddenWeaponEffectID, User, EquipType, ShowIntroduction;
+    int ItemType;    //0���飬1װ����2���ţ�3ҩƷ��4����
+    int UnKnown5, UnKnown6, UnKnown7;
+    int AddHP, AddMaxHP, AddPoison, AddPhysicalPower, ChangeMPType, AddMP, AddMaxMP;
+    int AddAttack, AddSpeed, AddDefence, AddMedcine, AddUsePoison, AddDetoxification, AddAntiPoison;
+    int AddFist, AddSword, AddKnife, AddUnusual, AddHiddenWeapon, AddKnowledge, AddMorality, AddAttackTwice, AddAttackWithPoison;
+    int OnlySuitableRole, NeedMPType, NeedMP, NeedAttack, NeedSpeed, NeedUsePoison, NeedMedcine, NeedDetoxification;
+    int NeedFist, NeedSword, NeedKnife, NeedUnusual, NeedHiddenWeapon, NeedIQ;
+    int NeedExp, NeedExpForMakeItem, NeedMaterial;
+    int MakeItem[5], MakeItemCount[5];
+}itemsave[200];
+//�浵�е��ӳ�������
+//Լ����Scene��ʾ��Ϸ�����е�ĳ��Elementʵ������Map��ʾ�洢������
+struct SubMapInfoSave
+{
+    int ID;
+    char Name[20];
+    int ExitMusic, EntranceMusic;
+    int JumpSubMap, EntranceCondition;
+    int MainEntranceX1, MainEntranceY1, MainEntranceX2, MainEntranceY2;
+    int EntranceX, EntranceY;
+    int ExitX[3], ExitY[3];
+    int JumpX, JumpY, JumpReturnX, JumpReturnY;
+}subMapInfo[84];
+//�浵�е���ѧ���ݣ����ʺ϶�Ӧ���룬��������С˵�е���ѧ����ħ����������ˣ�
+struct MagicSave
+{
+    int ID;
+    char Name[20];
+    int Unknown[5];
+    int SoundID;
+    int MagicType;    //1-ȭ��2-����3-����4-����
+    int EffectID;
+    int HurtType;          //0-��ͨ��1-��ȡMP
+    int AttackAreaType;    //0-�㣬1-�ߣ�2-ʮ�֣�3-��
+    int NeedMP, WithPoison;
+    int Attack[10], SelectDistance[10], AttackDistance[10], AddMP[10], HurtMP[10];
+}magicsave[93];
+//�浵�е��̵�����
+struct ShopSave
+{
+    int ItemID[SHOP_ITEM_COUNT], Total[SHOP_ITEM_COUNT], Price[SHOP_ITEM_COUNT];
+}shopsave[5];
