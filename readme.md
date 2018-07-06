@@ -6,6 +6,13 @@ kys-cpp项目弄了个新格式，grp32。老的编辑器不兼容了，所以�
 
 你的存档文件为kys-c++\game\save\r1.grp32到r10.grp32，分别对应第一个存档到第10个
 
+实际效果图
+![1](https://github.com/bugparty/kys-cpp_010editor_templates/raw/master/imgs/1.png)
+
+![2](https://github.com/bugparty/kys-cpp_010editor_templates/raw/master/imgs/2.png)
+
+![3](https://github.com/bugparty/kys-cpp_010editor_templates/raw/master/imgs/3.png)
+
 祝你玩得愉快
 
 
