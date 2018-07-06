@@ -36,21 +36,22 @@ enum
     SHOP_ITEM_COUNT = 5,
 };
 enum{
+MAIN_OFFSET = 0,
 ROLE_OFFSET = 1672,
 ITEM_OFFSET = 118152,
 SUBMAP_INFO_OFFSET = 194152,
 MAGIC_SAVE_OFFSET = 202888,
 SHOP_SAVE_OFFSET = 228184,
 } ;
-FSeek(ROLE_OFFSET);
 
+enum <int> SEX { MALE=0, FEMALE = 1, OTHER=2, } ;
 //�浵�еĽ�ɫ����
-struct RoleSave
+typedef struct
 {
     int ID;
     int HeadID, IncLife, UnUse;
     char Name[20], Nick[20];
-    int Sexual;    //�Ա� 0-�� 1 Ů 2 ����(�ӹ�?)
+    SEX Sexual;    //�Ա� 0-�� 1 Ů 2 ����(�Թ�?)
     int Level;
     int Exp;
     int HP, MaxHP, Hurt, Poison, PhysicalPower;
@@ -64,9 +65,15 @@ struct RoleSave
     int ExpForItem;
     int MagicID[ROLE_MAGIC_COUNT], MagicLevel[ROLE_MAGIC_COUNT];
     int TakingItem[ROLE_TAKING_ITEM_COUNT], TakingItemCount[ROLE_TAKING_ITEM_COUNT];
-}rolesave[320];
+}RoleSave <read=RoleSaveRead>;
+
+string RoleSaveRead( RoleSave &m )
+{
+ return m.Name;
+}
+
 //�浵�е���Ʒ����
-struct ItemSave
+typedef struct 
 {
     int ID;
     char Name[40];
@@ -82,10 +89,16 @@ struct ItemSave
     int NeedFist, NeedSword, NeedKnife, NeedUnusual, NeedHiddenWeapon, NeedIQ;
     int NeedExp, NeedExpForMakeItem, NeedMaterial;
     int MakeItem[5], MakeItemCount[5];
-}itemsave[200];
+}ItemSave <read=ItemSaveRead>;
+string ItemSaveRead( ItemSave &m )
+{
+ return m.Name;
+};
+
+
 //�浵�е��ӳ�������
 //Լ����Scene��ʾ��Ϸ�����е�ĳ��Elementʵ������Map��ʾ�洢������
-struct SubMapInfoSave
+typedef struct 
 {
     int ID;
     char Name[20];
@@ -95,9 +108,17 @@ struct SubMapInfoSave
     int EntranceX, EntranceY;
     int ExitX[3], ExitY[3];
     int JumpX, JumpY, JumpReturnX, JumpReturnY;
-}subMapInfo[84];
+}SubMapInfoSave <read=SubMapInfoSaveRead>;
+
+string SubMapInfoSaveRead( SubMapInfoSave &m )
+{
+ return m.Name;
+};
+
+
+
 //�浵�е���ѧ���ݣ����ʺ϶�Ӧ���룬��������С˵�е���ѧ����ħ����������ˣ�
-struct MagicSave
+typedef struct 
 {
     int ID;
     char Name[20];
@@ -109,9 +130,43 @@ struct MagicSave
     int AttackAreaType;    //0-�㣬1-�ߣ�2-ʮ�֣�3-��
     int NeedMP, WithPoison;
     int Attack[10], SelectDistance[10], AttackDistance[10], AddMP[10], HurtMP[10];
-}magicsave[93];
+}MagicSave <read=MagicSaveRead>;
+
+string MagicSaveRead( MagicSave &m )
+{
+ return m.Name;
+};
 //�浵�е��̵�����
-struct ShopSave
+typedef struct 
 {
     int ItemID[SHOP_ITEM_COUNT], Total[SHOP_ITEM_COUNT], Price[SHOP_ITEM_COUNT];
-}shopsave[5];
+}ShopSave  ;
+typedef struct  { int item_id, count; }ItemList <read=ItemListRead>;
+string ItemListRead(ItemList &m) 
+{
+   if(m.item_id != -1) {
+        return itemsave[m.item_id].Name;
+   } else {
+        return "Empty";
+   }
+}
+typedef struct  {
+    int InShip, InSubMap, MainMapX, MainMapY, SubMapX, SubMapY, FaceTowards, ShipX, ShipY, ShipX1, ShipY1, Encode;
+    int Team[TEAMMATE_COUNT] <comment=TeamComment>;
+    ItemList Items[ITEM_IN_BAG_COUNT];
+}Main;
+string TeamComment(int teamid) {
+ if(teamid != -1) {
+        return rolesave[teamid].Name;
+   } else {
+        return "Empty";
+   }
+}
+FSeek(ROLE_OFFSET);
+RoleSave rolesave[320];
+ItemSave itemsave[200];
+SubMapInfoSave subMapInfo[84];
+MagicSave magicsave[93];
+ShopSave shopsave[5];
+FSeek(MAIN_OFFSET);
+Main main;
