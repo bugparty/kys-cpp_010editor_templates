@@ -1,13 +1,14 @@
+//this is encoding in gbk or cp939, github and some editor can't display some characters, that's normal
 //------------------------------------------------
 //--- 010 Editor v6.0 Binary Template
 //
-//      File: Tutorial.bt
-//   Authors: SweetScape Software
-//   Version: 1.1
-//   Purpose: Part of the tutorial for 
-//            learning to write binary templates. 
+//      File: allHereInKingYongStory.bt
+//   Authors: bugpartys
+//   Version: 1.0
+//   Purpose: modify game save
+//             
 //------------------------------------------------
-//encoding:gbk cp939
+
 //open options, editor->file->template-> select chinese to display chinese comments
 //open options, editor->file->editor-> select chinese to display chinese in hex editor
 //�浵�е���Ʒ����
