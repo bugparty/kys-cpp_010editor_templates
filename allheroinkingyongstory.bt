@@ -163,11 +163,13 @@ string TeamComment(int teamid) {
         return "Empty";
    }
 }
+//首先滑动到角色信息，读取角色信息，物品，地图，商店信息
 FSeek(ROLE_OFFSET);
 RoleSave rolesave[320];
 ItemSave itemsave[200];
 SubMapInfoSave subMapInfo[84];
 MagicSave magicsave[93];
 ShopSave shopsave[5];
+//回到头部，读取主角信息
 FSeek(MAIN_OFFSET);
 Main main;
