@@ -1,4 +1,5 @@
 //this is encoding in gbk or cp939, github and some editor can't display some characters, that's normal
+//这个文档的注释编码是gbk，github无法显示，这是为了和存档相容，并非特立独行。
 //------------------------------------------------
 //--- 010 Editor v6.0 Binary Template
 //
